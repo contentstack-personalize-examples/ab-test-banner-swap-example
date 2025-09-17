@@ -1,7 +1,13 @@
-import contentstack, { QueryOperation } from "@contentstack/delivery-sdk"
-import ContentstackLivePreview, { IStackSdk } from "@contentstack/live-preview-utils";
-import { getContentstackEndpoints, getRegionForString } from "@timbenniks/contentstack-endpoints";
-import { Page } from "./types";
+import contentstack, { QueryOperation } from '@contentstack/delivery-sdk';
+import ContentstackLivePreview, {
+  IStackSdk,
+} from '@contentstack/live-preview-utils';
+import {
+  getContentstackEndpoints,
+  getRegionForString,
+} from '@timbenniks/contentstack-endpoints';
+
+import { Page } from './types';
 
 const region = getRegionForString(process.env.NEXT_PUBLIC_CONTENTSTACK_REGION as string)
 const endpoints = getContentstackEndpoints(region, true)
@@ -50,10 +56,11 @@ export function initLivePreview() {
   });
 }
 
-export async function getPage(url: string) {
+export async function getPage(url: string, contentType: string, referencedContentTypes: string[]) {
   const result = await stack
-    .contentType("page")
+    .contentType(contentType)
     .entry()
+    .includeReference(...referencedContentTypes)
     .query()
     .where("url", QueryOperation.EQUALS, url)
     .find<Page>();
