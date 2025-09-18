@@ -1,7 +1,8 @@
 "use client";
 
-import { initLivePreview } from "@/lib/contentstack";
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
+
+import { initLivePreview } from '@/lib/contentstack';
 
 export function ContentstackLivePreview({
   children,
@@ -15,7 +16,7 @@ export function ContentstackLivePreview({
     if (livePreviewEnabled) {
       initLivePreview();
     }
-  }, []);
+  }, [livePreviewEnabled]);
 
   return <>{children}</>;
 }

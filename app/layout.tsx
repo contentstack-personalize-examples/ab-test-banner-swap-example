@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { ContentstackLivePreview } from "@/components/ContentstackLivePreview";
+import './globals.css';
+
+import type { Metadata } from 'next';
+
+import { ContentstackLivePreview } from '@/components/ContentstackLivePreview';
+import { PersonalizeProvider } from '@/components/PersonalizeProvider';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <ContentstackLivePreview />
+        <PersonalizeProvider>
+          {children}
+          <ContentstackLivePreview />
+        </PersonalizeProvider>
       </body>
     </html>
   );

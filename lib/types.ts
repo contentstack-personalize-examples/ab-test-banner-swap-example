@@ -91,6 +91,37 @@ export interface BestSellers {
   $?: any;
 }
 
+export interface ProductsSection {
+  section_heading: string;
+  products: Product[];
+  _metadata: {
+    uid: string;
+  };
+  $?: any;
+}
+
+export interface Section {
+  products_section?: ProductsSection;
+  $?: any;
+}
+
+export interface GenericPage {
+  uid: string;
+  locale: string;
+  _version: number;
+  title: string;
+  url: string;
+  header?: Header[];
+  sections: Section[];
+  tags: string[];
+  created_at: string;
+  created_by: string;
+  updated_at: string;
+  updated_by: string;
+  publish_details: PublishDetails;
+  $?: any;
+}
+
 export interface Page {
   uid: string;
   $: any;
