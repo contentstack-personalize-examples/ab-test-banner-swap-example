@@ -8,6 +8,10 @@ import Personalize from '@contentstack/personalize-edge-sdk';
 export default async function middleware(req: NextRequest) {
   const projectUid = process.env.NEXT_PUBLIC_PERSONALIZATION_PROJECT_UID as string;
 
+  if (process.env.USE_NEXT_MIDDLEWARE !== 'true' || !projectUid) {
+    return NextResponse.next();
+  }
+
   try {
     // Set the Personalize Edge API URL. Set the right URL based on your Contentstack Region.
     // Get your URL here: https://www.contentstack.com/docs/developers/apis/personalize-edge-api#base-url
