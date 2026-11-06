@@ -10,7 +10,7 @@
  * It is also used to fetch the personalized content from the origin server.
  * 
  * NOTE: This is used when the app is deployed on Contentstack Launch.
- * For local development, use the middleware.ts file.
+ * For local development, use the proxy.ts file.
  */
 
 import Personalize from '@contentstack/personalize-edge-sdk';

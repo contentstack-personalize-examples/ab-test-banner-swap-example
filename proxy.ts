@@ -5,7 +5,7 @@ import {
 
 import Personalize from '@contentstack/personalize-edge-sdk';
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const projectUid = process.env.NEXT_PUBLIC_PERSONALIZATION_PROJECT_UID as string;
 
   if (process.env.USE_NEXT_MIDDLEWARE !== 'true' || !projectUid) {
@@ -44,7 +44,7 @@ export default async function middleware(req: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error('Personalize middleware error:', error);
+    console.error('Personalize proxy error:', error);
     // Fall back to normal response if personalization fails
     return NextResponse.next();
   }

@@ -103,6 +103,8 @@ Go to Settings > Live Preview. Click enable and select the `Preview` environment
 
 ## Install the dependencies
 
+This project requires Node.js 24 or later; Node.js 26 (the current Active LTS) is recommended. If you use nvm, run `nvm use` to pick up the version from `.nvmrc`.
+
 ```bash
 npm install
 ```
@@ -133,7 +135,7 @@ Go to `http://localhost:3000` to see:
 ## Deployment Options
 
 ### Vercel
-- Uses `middleware.ts` for personalization
+- Uses `proxy.ts` for personalization (set `USE_NEXT_MIDDLEWARE=true`)
 - Deploy with `vercel deploy`
 - Set environment variables in Vercel dashboard
 

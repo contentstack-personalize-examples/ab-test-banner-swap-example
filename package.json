@@ -14,27 +14,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@contentstack/delivery-sdk": "^4.8.0",
-    "@contentstack/live-preview-utils": "^3.4.0",
-    "@contentstack/personalize-edge-sdk": "^1.0.18",
-    "@timbenniks/contentstack-endpoints": "^1.0.14",
-    "isomorphic-dompurify": "^2.26.0",
-    "next": "15.4.6",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "@contentstack/delivery-sdk": "^5.6.2",
+    "@contentstack/live-preview-utils": "^4.6.1",
+    "@contentstack/personalize-edge-sdk": "^1.0.28",
+    "@timbenniks/contentstack-endpoints": "^3.0.2",
+    "next": "16.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.4.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "^4.3.4",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

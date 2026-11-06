@@ -4,33 +4,33 @@ This guide documents the Contentstack Personalize implementation in this Next.js
 
 ## What's Been Implemented
 
-### 1. Middleware Setup (`middleware.ts`) 
+### 1. Next.js Proxy Setup (`proxy.ts`)
 
-The middleware intercepts all requests and:
+The proxy (Next.js 16's replacement for middleware) intercepts all requests and:
 
 - Initializes the Personalize Edge SDK with your project UID
 - Fetches the User Manifest containing variant selections for each experience
 - Adds variant parameters to the URL as query parameters
 - Sets cookies for visitor identification across requests
 
-**Note**: Middleware works on Vercel and locally, but not on Contentstack Launch.
+**Note**: The proxy works on Vercel and locally, but not on Contentstack Launch. It only runs when `USE_NEXT_MIDDLEWARE=true` is set.
 
 ### 1b. Launch Edge Proxy (`/functions/[proxy].edge.js`)
 
-For Contentstack Launch deployment, the edge proxy provides the same functionality as middleware:
+For Contentstack Launch deployment, the edge proxy provides the same functionality as `proxy.ts`:
 
 - **Required Location**: `/functions/[proxy].edge.js` (exact path required)
 - **API Pattern**: Uses `context.env` for environment variables and direct `fetch()` calls  
 - **Auto-routing**: Automatically handles all requests, no configuration needed
 - **Asset Exclusion**: Skips processing for static files, API routes, and Next.js internals
 - **Documentation**: Based on [official Launch guide](https://www.contentstack.com/docs/personalize/setup-nextjs-website-with-personalize-launch)
-- **Usage**: Automatically used when deployed on Launch, middleware.ts used for local development
+- **Usage**: Automatically used when deployed on Launch, proxy.ts used for local development
 
 ### 2. Personalized Content Delivery (`lib/contentstack.ts`)
 
 The `getPage` and `getGenericPage` functions support:
 
-- Accepting variant parameters from the middleware or Launch edge proxy
+- Accepting variant parameters from `proxy.ts` or the Launch edge proxy
 - Converting variant parameters to variant aliases using `Personalize.variantParamToVariantAliases()`
 - Fetching personalized content variants instead of base entries when variants are available
 
@@ -62,7 +62,7 @@ Dynamic routing system for Contentstack pages:
 
 ### Environment Variables
 
-The following environment variables are required for both middleware and Launch edge proxy:
+The following environment variables are required for both `proxy.ts` and the Launch edge proxy:
 
 ```bash
 # Required: Your Contentstack Personalize project UID
@@ -109,8 +109,8 @@ NEXT_PUBLIC_CONTENTSTACK_PERSONALIZE_EDGE_API_URL=https://au-personalize-edge.co
 
 | Platform | Solution | Status |
 |----------|----------|--------|
-| **Vercel** | `middleware.ts` | ✅ Fully supported |
-| **Local Development** | `middleware.ts` | ✅ Fully supported |
+| **Vercel** | `proxy.ts` | ✅ Fully supported |
+| **Local Development** | `proxy.ts` | ✅ Fully supported |
 | **Contentstack Launch** | `/functions/[proxy].edge.js` | ✅ **Official Launch support** |
 | **Other Platforms** | Custom edge functions or client-side fallback | ⚠️ Platform-dependent |
 
@@ -206,7 +206,7 @@ export function InteractiveComponent() {
 ## Deployment
 
 ### Vercel Deployment
-- Uses `middleware.ts` automatically
+- Uses `proxy.ts` (set `USE_NEXT_MIDDLEWARE=true` to enable it)
 - Set environment variables in Vercel dashboard
 - Deploy as usual with `vercel deploy`
 
@@ -232,7 +232,7 @@ export function InteractiveComponent() {
   - Ensure that the experiences are 'Active' in the Personalize Dashboard
   - Ensure that the Entry Variants are published in the CMS
   - For Launch: Verify that `/functions/[proxy].edge.js` is deployed correctly
-- **Console errors**: Check middleware logs and ensure the Personalize project is properly configured
+- **Console errors**: Check proxy logs and ensure the Personalize project is properly configured
 - **Variants not loading**: Verify that experiences are published and audience rules are configured
 
 ## Resources
